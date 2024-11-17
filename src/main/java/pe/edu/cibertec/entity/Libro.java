@@ -1,8 +1,6 @@
 package pe.edu.cibertec.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -17,15 +15,20 @@ public class Libro {
     private Date fecha;
     private Double precio;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "codigo_categoria")
+    private Categoria categoria;
+
     public Libro() {
     }
 
-    public Libro(String isbn, String titulo, String autor, Date fecha, Double precio) {
+    public Libro(String isbn, String titulo, String autor, Date fecha, Double precio, Categoria categoria) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.fecha = fecha;
         this.precio = precio;
+        this.categoria = categoria;
     }
 
     @Override
@@ -77,5 +80,13 @@ public class Libro {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

@@ -1,13 +1,11 @@
-package pe.edu.cibertec.crud;
+package pe.edu.cibertec.relations;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import pe.edu.cibertec.entity.Libro;
 
-import java.util.Date;
-
-public class JPAPersist {
+public class JPAManyToOneRemove {
 
     public static void main(String[] args) {
 
@@ -15,12 +13,12 @@ public class JPAPersist {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("biblioteca");
         EntityManager em = emf.createEntityManager();
 
-        // crear un libro
-        Libro libro = new Libro("A3", "Titulo 3", "Autor 3", new Date(), 100.34, null);
+        // obtener libro
+        Libro libro = em.find(Libro.class, "A9");
 
-        // presistir el libro
+        // remove
         em.getTransaction().begin();
-        em.persist(libro);
+        em.remove(libro);
         em.getTransaction().commit();
 
     }
